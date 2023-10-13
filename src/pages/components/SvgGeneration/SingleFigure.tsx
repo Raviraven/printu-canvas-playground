@@ -1,17 +1,11 @@
-import { ProjectContainer, ProjectItem } from 'api';
-import { useEffect, useState } from 'react';
-import { Project } from 'api/Models';
+import { ProjectItem } from '../../../api';
 import { Outline } from './Outline';
-
-interface CanvasProps {
-  data?: ProjectContainer;
-}
 
 interface SingleFigureProps {
   figureData: ProjectItem;
 }
 
-const SingleFigure = ({ figureData }: SingleFigureProps) => {
+export const SingleFigure = ({ figureData }: SingleFigureProps) => {
   switch (figureData.type) {
     case 'rectangle':
       return (
@@ -43,6 +37,8 @@ const SingleFigure = ({ figureData }: SingleFigureProps) => {
           <Label data={figureData} />
         </g>
       );
+    default:
+      throw new Error('Passed type not implemented yet.');
   }
 };
 
@@ -60,33 +56,5 @@ const Label = ({ data }: { data: ProjectItem }) => {
         {data.rotation}°
       </text>
     </g>
-  );
-};
-
-export const Canvas = (props: CanvasProps) => {
-  const [project, setProject] = useState<Project>();
-
-  useEffect(() => {
-    if (!props.data) {
-      return;
-    }
-
-    setProject(props.data.project);
-  }, [props.data]);
-
-  return !project ? (
-    <></>
-  ) : (
-    //<svg width={project.width} height={project.height}>
-    //<svg height={'100%'} width={'100%'} xmlns="http://www.w3.org/2000/svg">
-    <svg
-      viewBox={`0 0 ${project.width} ${project.height}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {project.items.map((n) => {
-        return <SingleFigure key={`figure-${n.id}`} figureData={n} />;
-      })}
-    </svg>
-    //</svg>
   );
 };

@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { GetProjectData, ProjectContainer } from 'api';
-import { AxiosError } from 'axios';
 import { SliceLoadingState } from './SliceLoadingState';
+import { ApiError } from '../api/axios';
 
 interface ProjectDetailsState {
   Project?: ProjectContainer;
   Status: SliceLoadingState;
+  Error?: string;
 }
 
 const initialState: ProjectDetailsState = {
@@ -15,19 +16,24 @@ const initialState: ProjectDetailsState = {
 export const GetProject = createAsyncThunk<
   ProjectContainer,
   string,
-  { rejectValue: AxiosError }
+  { rejectValue: ApiError }
 >('api/get-project-data', async (Id: string, thunkAPI) => {
   try {
     return await GetProjectData(Id);
   } catch (error) {
-    return thunkAPI.rejectWithValue(error as AxiosError);
+    return thunkAPI.rejectWithValue(error as ApiError);
   }
 });
 
 export const projectDetailsSlice = createSlice({
   name: 'project-details',
   initialState,
-  reducers: {},
+  reducers: {
+    resetProjectDetailsData(state) {
+      state.Project = undefined;
+      state.Status = SliceLoadingState.idle;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(GetProject.pending, (state) => {
       state.Status = SliceLoadingState.pending;
@@ -38,8 +44,11 @@ export const projectDetailsSlice = createSlice({
       state.Project = action.payload;
     });
 
-    builder.addCase(GetProject.rejected, (state) => {
+    builder.addCase(GetProject.rejected, (state, action) => {
       state.Status = SliceLoadingState.rejected;
+      state.Error = action.payload?.message;
     });
   },
 });
+
+export const { resetProjectDetailsData } = projectDetailsSlice.actions;

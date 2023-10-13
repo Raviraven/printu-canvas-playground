@@ -1,23 +1,14 @@
 import { Canvas, FetchProjectForm } from './components';
 import { useCallback, useState } from 'react';
 import { GetRandomProject } from 'api';
-import {
-  AppDispatch,
-  RootState,
-  GetProject,
-  SliceLoadingState,
-} from 'redux-stuff';
+import { AppDispatch, GetProject } from 'redux-stuff';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-export const CanvasDisplay = () => {
+export const CanvasDisplayPage = () => {
   const [projectId, setProjectId] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-
-  const { Project, Status } = useSelector(
-    (state: RootState) => state.projectDetails,
-  );
 
   const fetch = useCallback(
     async (value: string) => {
@@ -44,11 +35,7 @@ export const CanvasDisplay = () => {
   return (
     <>
       <FetchProjectForm value={projectId} handleFetch={handleFetch} />
-      {Status === SliceLoadingState.pending || loading ? (
-        <>Loading</>
-      ) : (
-        <Canvas data={Project} />
-      )}
+      {loading ? <>Fetching random project</> : <Canvas />}
     </>
   );
 };

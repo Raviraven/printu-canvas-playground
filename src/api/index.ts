@@ -4,7 +4,7 @@ import {
   GeneralProjectInfo,
   ProjectItemType,
   Project,
-} from './Models';
+} from './ApiModels';
 
 import { GetRandomProject, GetProjectData } from './ProjectService';
 

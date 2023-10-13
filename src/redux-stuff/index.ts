@@ -1,7 +1,17 @@
-import { GetProject, projectDetailsSlice } from './projectDetailsSlice';
+import {
+  GetProject,
+  projectDetailsSlice,
+  resetProjectDetailsData,
+} from './projectDetailsSlice';
 import { SliceLoadingState } from './SliceLoadingState';
 import { store, AppDispatch, RootState } from './store';
 
 export type { RootState, AppDispatch };
 
-export { projectDetailsSlice, GetProject, SliceLoadingState, store };
+export {
+  projectDetailsSlice,
+  GetProject,
+  SliceLoadingState,
+  store,
+  resetProjectDetailsData,
+};
