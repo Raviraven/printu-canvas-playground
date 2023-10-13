@@ -25,11 +25,11 @@ export const FetchProjectForm = (props: GetProjectFormProps) => {
   );
 
   return (
-    <>
+    <section>
       <TextInput value={currentValue} onChange={handleOnInputValueChange} />
       <button type={'button'} onClick={() => handleFetch(currentValue)}>
         Fetch
       </button>
-    </>
+    </section>
   );
 };

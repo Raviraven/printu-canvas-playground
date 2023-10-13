@@ -6,7 +6,7 @@ import {
   Project,
 } from './Models';
 
-import { GetRandomProject, GetProjectData } from './ImagesService';
+import { GetRandomProject, GetProjectData } from './ProjectService';
 
 export type {
   ProjectItem,

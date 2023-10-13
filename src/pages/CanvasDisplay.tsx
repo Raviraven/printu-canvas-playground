@@ -1,23 +1,38 @@
-import { FetchProjectForm, Canvas } from './components';
+import { Canvas, FetchProjectForm } from './components';
 import { useCallback, useState } from 'react';
-import { GetProjectData, GetRandomProject, ProjectContainer } from 'api';
+import { GetRandomProject } from 'api';
+import {
+  AppDispatch,
+  RootState,
+  GetProject,
+  SliceLoadingState,
+} from 'redux-stuff';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 export const CanvasDisplay = () => {
-  const [projectId, setProjectId] = useState(
-    'clnkpvwfi000108mn0pwacmwi-7661963926884798',
+  const [projectId, setProjectId] = useState('');
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { Project, Status } = useSelector(
+    (state: RootState) => state.projectDetails,
   );
-  const [data, setData] = useState<ProjectContainer>();
 
-  const fetch = useCallback(async (value: string) => {
-    if (!value) {
-      const randomProject = await GetRandomProject();
-      value = randomProject.id;
-      setProjectId(value);
-    }
+  const fetch = useCallback(
+    async (value: string) => {
+      if (!value) {
+        setLoading(true);
+        const randomProject = await GetRandomProject();
+        value = randomProject.id;
+        setProjectId(value);
+        setLoading(false);
+      }
 
-    const result = await GetProjectData(value);
-    setData(result);
-  }, []);
+      dispatch(GetProject(value));
+    },
+    [dispatch],
+  );
 
   const handleFetch = useCallback(
     (value: string) => {
@@ -28,12 +43,12 @@ export const CanvasDisplay = () => {
 
   return (
     <>
-      <FetchProjectForm
-        value={projectId}
-        //onChange={handleChangeProjectId}
-        handleFetch={handleFetch}
-      />
-      <Canvas data={data} />
+      <FetchProjectForm value={projectId} handleFetch={handleFetch} />
+      {Status === SliceLoadingState.pending || loading ? (
+        <>Loading</>
+      ) : (
+        <Canvas data={Project} />
+      )}
     </>
   );
 };
