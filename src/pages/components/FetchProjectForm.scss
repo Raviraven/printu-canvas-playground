@@ -1,0 +1,49 @@
+$max-width: 960px;
+
+.fetch-project-form {
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: $max-width) {
+    flex-direction: column;
+  }
+
+  & > button {
+    font-size: 1rem;
+    border: solid 1px #ccc;
+    border-radius: 0.5rem;
+    width: 6rem;
+
+    @media screen and (max-width: $max-width) {
+      height: 2rem;
+      width: auto;
+    }
+
+    &.fetch-button {
+      margin-right: 0.5rem;
+
+      @media screen and (max-width: $max-width) {
+        margin-right: 0;
+      }
+    }
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  & > input {
+    margin-right: 1rem;
+    min-width: 24rem;
+
+    height: 1.5rem;
+    font-size: 1rem;
+    border: solid 1px #ccc;
+    border-radius: 0.5rem;
+
+    @media screen and (max-width: $max-width) {
+      margin-right: 0;
+      height: 2rem;
+    }
+  }
+}

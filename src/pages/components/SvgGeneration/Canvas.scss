@@ -1,0 +1,15 @@
+.error {
+  color: red;
+}
+
+.svg-canvas {
+  display: contents;
+}
+
+.validation-errors {
+  & > ul {
+    & > li {
+      color: red;
+    }
+  }
+}
