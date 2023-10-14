@@ -43,3 +43,47 @@ const ValidateSingleItem = (props: ValidateSvgFigureDataProps) => {
 
   return validationResult;
 };
+
+export const CalculateOutlineValues = (
+  height: number,
+  width: number,
+  rotation: number,
+  x: number,
+  y: number,
+) => {
+  const radians = (rotation * Math.PI) / 180;
+  const halfWidth = width / 2;
+  const halfHeight = height / 2;
+
+  const rotx1 =
+    x - halfWidth * Math.cos(radians) - halfHeight * Math.sin(radians);
+  const roty1 =
+    y - halfWidth * Math.sin(radians) + halfHeight * Math.cos(radians);
+
+  const rotx2 =
+    x + halfWidth * Math.cos(radians) - halfHeight * Math.sin(radians);
+  const roty2 =
+    y + halfWidth * Math.sin(radians) + halfHeight * Math.cos(radians);
+
+  const rotx3 =
+    x + halfWidth * Math.cos(radians) + halfHeight * Math.sin(radians);
+  const roty3 =
+    y + halfWidth * Math.sin(radians) - halfHeight * Math.cos(radians);
+
+  const rotx4 =
+    x - halfWidth * Math.cos(radians) + halfHeight * Math.sin(radians);
+  const roty4 =
+    y - halfWidth * Math.sin(radians) - halfHeight * Math.cos(radians);
+
+  const rotatedXs = [rotx1, rotx2, rotx3, rotx4];
+  const rotatedYs = [roty1, roty2, roty3, roty4];
+
+  const newWidth =
+    Math.abs(Math.ceil(Math.max(...rotatedXs))) -
+    Math.abs(Math.ceil(Math.min(...rotatedXs)));
+  const newHeight =
+    Math.abs(Math.ceil(Math.max(...rotatedYs))) -
+    Math.abs(Math.ceil(Math.min(...rotatedYs)));
+
+  return { newHeight, newWidth, rotatedXs, rotatedYs };
+};

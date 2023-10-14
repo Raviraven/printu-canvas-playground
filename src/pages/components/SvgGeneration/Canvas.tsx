@@ -10,6 +10,9 @@ export const Canvas = () => {
   const { Project, Status } = useSelector(
     (state: RootState) => state.projectDetails,
   );
+  const { Status: projectStatus } = useSelector(
+    (state: RootState) => state.project,
+  );
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -38,7 +41,8 @@ export const Canvas = () => {
     );
   }
 
-  return Status === SliceLoadingState.pending ? (
+  return Status === SliceLoadingState.pending ||
+    projectStatus === SliceLoadingState.pending ? (
     <>Loading</>
   ) : !Project?.project ? (
     <>Invalid data.</>
