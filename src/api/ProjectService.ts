@@ -1,4 +1,4 @@
-import { axiosInstance } from './axios';
+import { axiosInstance } from './Axios';
 import { ProjectUrls } from './ProjectUrls';
 import { GeneralProjectInfo, ProjectContainer } from './ApiModels';
 

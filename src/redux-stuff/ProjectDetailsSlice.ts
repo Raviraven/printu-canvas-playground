@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { GetProjectData, ProjectContainer } from 'api';
 import { SliceLoadingState } from './SliceLoadingState';
-import { ApiError } from '../api/axios';
+import { ApiError } from 'api/Axios';
 
 interface ProjectDetailsState {
   Project?: ProjectContainer;
@@ -25,7 +25,7 @@ export const GetProject = createAsyncThunk<
   }
 });
 
-export const projectDetailsSlice = createSlice({
+export const ProjectDetailsSlice = createSlice({
   name: 'project-details',
   initialState,
   reducers: {
@@ -51,4 +51,4 @@ export const projectDetailsSlice = createSlice({
   },
 });
 
-export const { resetProjectDetailsData } = projectDetailsSlice.actions;
+export const { resetProjectDetailsData } = ProjectDetailsSlice.actions;

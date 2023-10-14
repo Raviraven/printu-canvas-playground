@@ -30,7 +30,7 @@ export const GetRandomProjectInfo = createAsyncThunk(
   },
 );
 
-export const projectSlice = createSlice({
+export const ProjectSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {

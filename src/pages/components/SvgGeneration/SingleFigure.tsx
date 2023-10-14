@@ -1,5 +1,6 @@
-import { ProjectItem } from '../../../api';
+import { ProjectItem } from 'api';
 import { Outline } from './Outline';
+import { ReactNode } from 'react';
 
 interface SingleFigureProps {
   figureData: ProjectItem;
@@ -9,7 +10,7 @@ export const SingleFigure = ({ figureData }: SingleFigureProps) => {
   switch (figureData.type) {
     case 'rectangle':
       return (
-        <g>
+        <SvgFigureWrapper data={figureData}>
           <rect
             fill={figureData.color}
             x={figureData.x - figureData.width / 2}
@@ -18,13 +19,11 @@ export const SingleFigure = ({ figureData }: SingleFigureProps) => {
             height={figureData.height}
             transform={`rotate(${figureData.rotation} ${figureData.x} ${figureData.y})`}
           />
-          <Outline data={figureData} />
-          <Label data={figureData} />
-        </g>
+        </SvgFigureWrapper>
       );
     case 'ellipse':
       return (
-        <g>
+        <SvgFigureWrapper data={figureData}>
           <ellipse
             fill={figureData.color}
             cx={figureData.x}
@@ -33,13 +32,27 @@ export const SingleFigure = ({ figureData }: SingleFigureProps) => {
             ry={figureData.height / 2}
             transform={`rotate(${figureData.rotation} ${figureData.x} ${figureData.y})`}
           />
-          <Outline data={figureData} />
-          <Label data={figureData} />
-        </g>
+        </SvgFigureWrapper>
       );
     default:
       throw new Error('Passed type not implemented yet.');
   }
+};
+
+const SvgFigureWrapper = ({
+  children,
+  data,
+}: {
+  children: ReactNode;
+  data: ProjectItem;
+}) => {
+  return (
+    <g>
+      {children}
+      <Outline data={data} />
+      <Label data={data} />
+    </g>
+  );
 };
 
 const Label = ({ data }: { data: ProjectItem }) => {

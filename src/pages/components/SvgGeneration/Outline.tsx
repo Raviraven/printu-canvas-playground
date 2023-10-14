@@ -1,6 +1,7 @@
 import { ProjectItem } from 'api';
 
 export const Outline = ({ data }: { data: ProjectItem }) => {
+  // extract math calc to separate file - Utils.ts?
   const radians = (data.rotation * Math.PI) / 180;
   const halfWidth = data.width / 2;
   const halfHeight = data.height / 2;

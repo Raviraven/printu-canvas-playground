@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { projectDetailsSlice } from './projectDetailsSlice';
-import { projectSlice } from './projectSlice';
+import { ProjectDetailsSlice } from './ProjectDetailsSlice';
+import { ProjectSlice } from './ProjectSlice';
 
 export const store = configureStore({
   reducer: {
-    projectDetails: projectDetailsSlice.reducer,
-    project: projectSlice.reducer,
+    projectDetails: ProjectDetailsSlice.reducer,
+    project: ProjectSlice.reducer,
   },
 });
 

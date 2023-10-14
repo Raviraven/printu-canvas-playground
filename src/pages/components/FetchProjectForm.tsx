@@ -10,7 +10,6 @@ interface GetProjectFormProps {
 
 export const FetchProjectForm = (props: GetProjectFormProps) => {
   const { value, handleFetch } = props;
-
   const [currentValue, setCurrentValue] = useState('');
 
   useEffect(() => {
@@ -26,17 +25,25 @@ export const FetchProjectForm = (props: GetProjectFormProps) => {
     [],
   );
 
+  const handleOnFetchClick = useCallback(() => {
+    handleFetch(currentValue);
+  }, [currentValue, handleFetch]);
+
+  const handleOnClearClick = useCallback(() => {
+    setCurrentValue('');
+  }, []);
+
   return (
     <section className={'fetch-project-form'}>
       <TextInput value={currentValue} onChange={handleOnInputValueChange} />
       <button
         type={'button'}
-        onClick={() => handleFetch(currentValue)}
+        onClick={handleOnFetchClick}
         className={'fetch-button'}
       >
         Fetch
       </button>
-      <button type={'button'} onClick={() => setCurrentValue('')}>
+      <button type={'button'} onClick={handleOnClearClick}>
         Clear
       </button>
     </section>

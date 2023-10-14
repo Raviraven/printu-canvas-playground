@@ -1,4 +1,4 @@
-import { Canvas, FetchProjectForm } from './components';
+import { Canvas, FetchProjectForm, CanvasWrapper } from './components';
 import { useCallback, useState } from 'react';
 import { GetRandomProject } from 'api';
 import { AppDispatch, GetProject } from 'redux-stuff';
@@ -35,7 +35,13 @@ export const CanvasDisplayPage = () => {
   return (
     <>
       <FetchProjectForm value={projectId} handleFetch={handleFetch} />
-      {loading ? <>Fetching random project</> : <Canvas />}
+      {loading ? (
+        <>Fetching random project</>
+      ) : (
+        <CanvasWrapper>
+          <Canvas />
+        </CanvasWrapper>
+      )}
     </>
   );
 };

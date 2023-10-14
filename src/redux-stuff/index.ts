@@ -1,15 +1,15 @@
 import {
   GetProject,
-  projectDetailsSlice,
+  ProjectDetailsSlice,
   resetProjectDetailsData,
-} from './projectDetailsSlice';
+} from './ProjectDetailsSlice';
 import { SliceLoadingState } from './SliceLoadingState';
-import { store, AppDispatch, RootState } from './store';
+import { store, AppDispatch, RootState } from './Store';
 
 export type { RootState, AppDispatch };
 
 export {
-  projectDetailsSlice,
+  ProjectDetailsSlice,
   GetProject,
   SliceLoadingState,
   store,
