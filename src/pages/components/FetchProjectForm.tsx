@@ -60,6 +60,7 @@ export const FetchProjectForm = () => {
         value={currentValue}
         onChange={handleOnInputValueChange}
         id={'report-input-id'}
+        placeholder={'Project ID'}
       />
       <button
         type={'button'}
